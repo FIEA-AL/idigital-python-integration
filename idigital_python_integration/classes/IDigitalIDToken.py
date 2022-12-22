@@ -1,5 +1,5 @@
-from src.classes.IDigitalToken import IDigitalToken
-from src.classes.IDigitalHelp import IDigitalHelp
+from idigital_python_integration.classes.IDigitalToken import IDigitalToken
+from idigital_python_integration.classes.IDigitalHelp import IDigitalHelp
 
 
 class IDigitalIDToken(IDigitalToken):

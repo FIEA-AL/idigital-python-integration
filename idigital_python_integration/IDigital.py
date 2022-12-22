@@ -1,12 +1,12 @@
-from src.classes.IDigitalAccessToken import IDigitalAccessToken
-from src.classes.IDigitalDiscovery import IDigitalDiscovery
-from src.classes.IDigitalException import IDigitalException
-from src.classes.IDigitalIDToken import IDigitalIDToken
-from src.classes.IDigitalMessage import IDigitalMessage
-from src.classes.IDigitalSession import IDigitalSession
-from src.classes.IDigitalConfig import IDigitalConfig
-from src.classes.IDigitalHelp import IDigitalHelp
-from src.classes.IDigitalHttp import IDigitalHttp
+from idigital_python_integration.classes.IDigitalAccessToken import IDigitalAccessToken
+from idigital_python_integration.classes.IDigitalDiscovery import IDigitalDiscovery
+from idigital_python_integration.classes.IDigitalException import IDigitalException
+from idigital_python_integration.classes.IDigitalIDToken import IDigitalIDToken
+from idigital_python_integration.classes.IDigitalMessage import IDigitalMessage
+from idigital_python_integration.classes.IDigitalSession import IDigitalSession
+from idigital_python_integration.classes.IDigitalConfig import IDigitalConfig
+from idigital_python_integration.classes.IDigitalHelp import IDigitalHelp
+from idigital_python_integration.classes.IDigitalHttp import IDigitalHttp
 from typing import Any, Callable
 
 

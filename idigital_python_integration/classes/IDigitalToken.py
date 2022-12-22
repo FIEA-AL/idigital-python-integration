@@ -1,6 +1,6 @@
-from src.classes.IDigitalException import IDigitalException
-from src.classes.IDigitalMessage import IDigitalMessage
-from src.classes.IDigitalHelp import IDigitalHelp
+from idigital_python_integration.classes.IDigitalException import IDigitalException
+from idigital_python_integration.classes.IDigitalMessage import IDigitalMessage
+from idigital_python_integration.classes.IDigitalHelp import IDigitalHelp
 from jose import jwt
 import base64
 import json

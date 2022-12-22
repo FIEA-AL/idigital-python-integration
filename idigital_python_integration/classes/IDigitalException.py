@@ -1,4 +1,4 @@
-from src.utils.HttpStatus import HttpStatus
+from idigital_python_integration.utils.HttpStatus import HttpStatus
 from datetime import datetime
 
 

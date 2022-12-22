@@ -1,5 +1,5 @@
-from src.classes.IDigitalException import IDigitalException
-from src.classes.IDigitalMessage import IDigitalMessage
+from idigital_python_integration.classes.IDigitalException import IDigitalException
+from idigital_python_integration.classes.IDigitalMessage import IDigitalMessage
 import hashlib
 import secrets
 import base64
