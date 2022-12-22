@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "idigital-python-integration"
+description = "IDigital OpenID Connect integration for Python"
+packages = [{include = "idigital_python_integration"}]
+readme = "README.md"
+version = "0.1.0"
+license = "MIT"
+authors = [
+    "Vitor Barcelos <vitor@barcelos.dev.br>",
+    "Bruno Pereira <batlopes@yahoo.com.br>",
+    "Lucas Paz <lucas.paaz5@gmail.com>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-jose = "^3.3.0"
+requests = "^2.28.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
