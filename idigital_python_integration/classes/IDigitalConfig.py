@@ -6,10 +6,10 @@ class IDigitalConfig:
         self.application_host: str = configs['application_host']
 
         # Adding Default options for oauth2 authorization code flow
-        self.response_type = configs['response_type'] or 'code'
-        self.application_type = configs['application_type'] or 'web'
-        self.grant_type = configs['grant_type'] or 'authorization_code'
-        self.scopes = configs['scopes'] or ['openid', 'profile', 'email']
-        self.code_challenge_method = configs['code_challenge_method'] or 'S256'
-        self.token_endpoint_auth_method = configs['token_endpoint_auth_method'] or 'none'
-        self.post_logout_redirect_uri = configs['post_logout_redirect_uri'] or self.issuer
+        self.response_type = configs['response_type'] if configs['response_type'] else 'code'
+        self.scopes = configs['scopes'] if configs['scopes'] else ['openid', 'profile', 'email']
+        self.grant_type = configs['grant_type'] if configs['grant_type'] else 'authorization_code'
+        self.application_type = configs['application_type'] if configs['application_type'] else 'web'
+        self.code_challenge_method = configs['code_challenge_method'] if configs['code_challenge_method'] else 'S256'
+        self.token_endpoint_auth_method = configs['token_endpoint_auth_method'] if configs['token_endpoint_auth_method'] else 'none'
+        self.post_logout_redirect_uri = configs['post_logout_redirect_uri'] if configs['post_logout_redirect_uri'] else self.issuer
