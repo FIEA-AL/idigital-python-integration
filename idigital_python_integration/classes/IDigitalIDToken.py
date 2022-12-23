@@ -1,20 +1,20 @@
+from idigital_python_integration.classes.IDigitalConfig import IDigitalConfig
 from idigital_python_integration.classes.IDigitalToken import IDigitalToken
 from idigital_python_integration.classes.IDigitalHelp import IDigitalHelp
 
 
 class IDigitalIDToken(IDigitalToken):
-
     @staticmethod
-    def verify(token: str | None, nonce: str | None, keys, options):
+    def verify(token: str | None, access_token: str | None, nonce: str | None, keys, options: IDigitalConfig):
         if token is not None and nonce is not None and IDigitalHelp.is_jwt(token):
             header = IDigitalIDToken.getHeader(token, 'JWT')
-            jwt_decoded = IDigitalIDToken.verifyHeader(token, header, keys)
-            IDigitalIDToken.verifyNonce(jwt_decoded['payload']['nonce'], nonce)
-            IDigitalIDToken.verifyIssuer(jwt_decoded['payload']['iss'], options['issuer'])
-            IDigitalIDToken.verifyAudience(jwt_decoded['payload']['aud'], options['client_id'])
+            payload = IDigitalIDToken.verifyHeader(token, access_token, header, keys)
+            IDigitalIDToken.verifyAudience(payload['aud'], options.client_id)
+            IDigitalIDToken.verifyIssuer(payload['iss'], options.issuer)
+            IDigitalIDToken.verifyNonce(payload['nonce'], nonce)
 
             return IDigitalIDToken(token, {
-                'payload': jwt_decoded['payload'],
+                'payload': payload,
                 'header': header
             })
 

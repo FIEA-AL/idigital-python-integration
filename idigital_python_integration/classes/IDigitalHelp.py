@@ -1,8 +1,7 @@
 from idigital_python_integration.classes.IDigitalException import IDigitalException
 from idigital_python_integration.classes.IDigitalMessage import IDigitalMessage
-import hashlib
 import secrets
-import base64
+import pkce
 import re
 
 
@@ -28,11 +27,8 @@ class IDigitalHelp:
     @staticmethod
     def get_pkce_keys_pair() -> dict:
         try:
-            encode = 'base64'
-            code_verifier = IDigitalHelp.get_random_bytes()
-            sha256 = hashlib.sha256(code_verifier.encode(encode)).hexdigest()
-            pre_code_challenge = base64.urlsafe_b64encode(sha256.encode(encode)).decode(encode)
-            code_challenge = pre_code_challenge.replace('+/', '-_').replace(' ', '-')
+            code_verifier = pkce.generate_code_verifier(length=128)
+            code_challenge = pkce.get_code_challenge(code_verifier)
             return {
                 'code_verifier': code_verifier,
                 'code_challenge': code_challenge

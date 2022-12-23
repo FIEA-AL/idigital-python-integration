@@ -31,9 +31,9 @@ class IDigitalToken:
         return header
 
     @staticmethod
-    def verifyHeader(token: str | None, header: dict, keys):
+    def verifyHeader(token: str | None, access_token: str | None,  header: dict, keys):
         public_key = IDigitalToken.getPublicKeyByKid(header['kid'], header['alg'], keys)
-        return jwt.decode(token, public_key, algorithms=['RS256'], options={
+        return jwt.decode(token, public_key, algorithms=['RS256'], access_token=access_token, options={
             "verify_aud": False,
             "verify_iss": False
         })

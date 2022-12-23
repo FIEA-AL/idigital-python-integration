@@ -12,36 +12,38 @@ class IDigitalSession:
             message = IDigitalMessage.REQUIRED_SESSION
             raise IDigitalException(400, message)
 
-        if session[IDigitalSession.NAME] is None:
-            session[IDigitalSession.NAME] = {}
+        session.setdefault(IDigitalSession.NAME, {})
 
     @staticmethod
     def flush(session: dict) -> None:
         IDigitalSession.guarantees_already_exists(session)
-        del (session[IDigitalSession.NAME])
+        session.setdefault(IDigitalSession.NAME, {})
+        del(session[IDigitalSession.NAME])
 
     @staticmethod
     def get(session: dict, key: str, default=None) -> Any:
         IDigitalSession.guarantees_already_exists(session)
-        value = session[IDigitalSession.NAME][key]
+        dictonary = session.get(IDigitalSession.NAME, {})
+        value = dictonary.get(key, None)
 
         if value is None and not callable(default):
+            IDigitalSession.put(session, key, default)
             value = default
         elif value is None and callable(default):
             value = default()
+            IDigitalSession.put(session, key, value)
 
         return value
 
     @staticmethod
     def delete(session: dict, key: str) -> None:
         IDigitalSession.guarantees_already_exists(session)
-        del (session[IDigitalSession.NAME][key])
+        session.get(IDigitalSession.NAME, {}).pop(key, None)
 
     @staticmethod
-    def put(session: dict, key: str, value) -> Any:
+    def put(session: dict, key: str, value) -> None:
         IDigitalSession.guarantees_already_exists(session)
-        session[IDigitalSession.NAME][key] = value
-        return IDigitalSession.get(session, key)
+        session.get(IDigitalSession.NAME, {}).update({key: value})
 
     @staticmethod
     def pull(session: dict, key: str, default=None) -> Any:

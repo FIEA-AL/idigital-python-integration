@@ -7,7 +7,7 @@ from idigital_python_integration.classes.IDigitalSession import IDigitalSession
 from idigital_python_integration.classes.IDigitalConfig import IDigitalConfig
 from idigital_python_integration.classes.IDigitalHelp import IDigitalHelp
 from idigital_python_integration.classes.IDigitalHttp import IDigitalHttp
-from typing import Any, Callable
+from typing import Callable
 
 
 class IDigital:
@@ -61,8 +61,8 @@ class IDigital:
 
         tokens = self.getTokens(code, session)
         nonce = IDigitalSession.get(session, 'nonce')
-        id_token = IDigitalIDToken.verify(tokens['id_token'], nonce, self.jwks, self.configs)
         access_token = IDigitalAccessToken.verify(tokens['access_token'], self.jwks, self.configs)
+        id_token = IDigitalIDToken.verify(tokens['id_token'], tokens['access_token'], nonce, self.jwks, self.configs)
 
         # Update session object with provider response
         IDigitalSession.put(session, 'access_token', tokens['access_token'])
@@ -80,8 +80,8 @@ class IDigital:
             access_token = IDigitalSession.get(session, 'access_token')
             return {
                 'status': True,
-                'id_token': IDigitalIDToken.verify(id_token, nonce, self.jwks, self.configs),
-                'access_token': IDigitalAccessToken.verify(access_token, self.jwks, self.configs)
+                'access_token': IDigitalAccessToken.verify(access_token, self.jwks, self.configs),
+                'id_token': IDigitalIDToken.verify(id_token, access_token, nonce, self.jwks, self.configs)
             }
         except Exception:
             return {
@@ -106,7 +106,7 @@ class IDigital:
 
             return url
 
-    def getTokens(self, code: str, session: Any | None) -> dict:
+    def getTokens(self, code: str, session: dict) -> dict:
         token_endpoint = self.discovery.token_endpoint
         return IDigitalHttp.get_tokens(token_endpoint, {
             'code_challenge_method': self.configs.code_challenge_method,

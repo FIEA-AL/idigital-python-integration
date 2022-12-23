@@ -11,22 +11,40 @@ class IDigitalHttp:
 
     @staticmethod
     def get_discovery(url: str) -> IDigitalDiscovery:
-        return IDigitalDiscovery(IDigitalHttp.get(url))
+        response = IDigitalHttp.get(url)
+
+        if 'error' in response:
+            message = IDigitalMessage.COULD_NOT_GET_DISCOVERY
+            raise IDigitalException(500, message)
+
+        return IDigitalDiscovery(response)
 
     @staticmethod
     def get_jwks(url: str) -> Any:
-        return IDigitalHttp.get(url)
+        response = IDigitalHttp.get(url)
+
+        if 'error' in response:
+            message = IDigitalMessage.COULD_NOT_GET_JWKS
+            raise IDigitalException(500, message)
+
+        return response
 
     @staticmethod
     def get_tokens(url: str, body: dict) -> Any:
-        return IDigitalHttp.post(url, body)
+        response = IDigitalHttp.post(url, body)
+
+        if 'error' in response:
+            message = IDigitalMessage.COULD_NOT_GET_TOKENS
+            raise IDigitalException(500, message)
+
+        return response
 
     @staticmethod
     def get(url: str) -> Any:
         try:
             return requests.get(url, headers={
                 'Content-Type': IDigitalHttp.__JSON_TYPE,
-            })
+            }).json()
         except Exception:
             message = IDigitalMessage.HTTP_ERROR
             raise IDigitalException(500, message)
@@ -36,7 +54,7 @@ class IDigitalHttp:
         try:
             return requests.post(url, data=body, headers={
                 'Content-Type': IDigitalHttp.__WWW_FORM_TYPE
-            })
+            }).json()
         except Exception:
             message = IDigitalMessage.HTTP_ERROR
             raise IDigitalException(500, message)

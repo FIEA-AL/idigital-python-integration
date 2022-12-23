@@ -13,3 +13,6 @@ class IDigitalMessage:
     COULD_NOT_GENERATE_BYTES: str = 'O servidor não conseguiu gerar valores aleatórios.'
     HTTP_ERROR: str = 'Não foi possível realizar a requisição para o servidor de destino.'
     COULD_NOT_FIND_PUBLIC_KEYS: str = 'O servidor não conseguiu encontrar chaves públicas.'
+    COULD_NOT_GET_TOKENS: str = 'Não foi possível solicitar os tokens do servidor de destino.'
+    COULD_NOT_GET_DISCOVERY: str = 'Não foi possível solicitar o discovery do servidor de destino.'
+    COULD_NOT_GET_JWKS: str = 'Não foi possível solicitar as chaves públicas do servidor de destino.'
