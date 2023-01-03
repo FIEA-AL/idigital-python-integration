@@ -3,7 +3,7 @@ name = "idigital-python-integration"
 description = "IDigital OpenID Connect integration for Python"
 packages = [{include = "idigital_python_integration"}]
 readme = "README.md"
-version = "0.2.0"
+version = "0.2.1"
 license = "MIT"
 authors = [
     "Vitor Barcelos <vitor@barcelos.dev.br>",
